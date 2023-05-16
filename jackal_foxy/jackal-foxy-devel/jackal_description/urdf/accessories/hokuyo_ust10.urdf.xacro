@@ -53,7 +53,7 @@
 
       <gazebo reference="${frame}">
             <sensor type="gpu_lidar" name="${frame}">
-                <ignition_frame_id>base_link</ignition_frame_id>
+                <ignition_frame_id>${frame}</ignition_frame_id>
                 <update_rate> 40.00 </update_rate>
                 <always_on> 1 </always_on>
                 <topic> range </topic>
@@ -65,12 +65,12 @@
                             <min_angle>${min_angle}</min_angle>
                             <max_angle>${max_angle}</max_angle>
                         </horizontal>
-                        <!-- <vertical>
-                            <samples>3</samples>
+                        <vertical>
+                            <samples>5</samples>
                             <resolution>1</resolution>
                             <min_angle> -.2616</min_angle>
                             <max_angle> .2616</max_angle>
-                        </vertical> -->
+                        </vertical>
                     </scan>
                     <range>
                         <min>${min_range}</min>

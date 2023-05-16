@@ -43,7 +43,7 @@ def generate_launch_description():
 
     xacro_file = os.path.join(jackal_description_path,
                               'urdf',
-                              'jackal4.urdf')
+                              'jackal_lidar.urdf')
     
     world_file = os.path.join(jackal_world_path,
                               'worlds',
@@ -84,6 +84,32 @@ def generate_launch_description():
         output='screen'
     )
 
+    # keyboard_controller = ExecuteProcess(
+    #     # cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+    #     #      'joint_state_broadcaster'],
+    #     cmd=['ros2', 'run', 'teleop_twist_keyboard', 'teleop_twist_keyboard',
+    #           '--ros-args', '--remap', '/cmd_vel:=/diff_drive_base_controller/cmd_vel_unstamped'],
+    #     output='screen'
+    # )
+
+    keyboard_controller_bridge = ExecuteProcess(
+        # cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+        #      'joint_state_broadcaster'],
+        cmd=['ros2', 'run', 'ros_ign_bridge', 'parameter_bridge',
+              '/diff_drive_base_controller/cmd_vel_unstamped@geometry_msgs/msg/Twist]ignition.msgs.Twist'],
+        output='screen'
+    )
+
+    lidar_bridge = ExecuteProcess(
+        # cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+        #      'joint_state_broadcaster'],
+        cmd=['ros2', 'run', 'ros_ign_bridge', 'parameter_bridge',
+              '/range@sensor_msgs/msg/LaserScan[ignition.msgs.LaserScan', '--ros-args', '-r', '/range:=/laser_scan'],
+        output='screen'
+    )
+
+
+
     # load_joint_trajectory_controller = ExecuteProcess(
     #     cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
     #          'diff_drive_base_controller'],
@@ -114,6 +140,18 @@ def generate_launch_description():
         #         on_exit=[load_joint_trajectory_controller],
         #     )
         # ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[keyboard_controller_bridge],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=ignition_spawn_entity,
+                on_exit=[lidar_bridge],
+            )
+        ),
         node_robot_state_publisher,
         ignition_spawn_entity,
         # Launch Arguments
