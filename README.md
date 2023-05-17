@@ -70,6 +70,8 @@ sudo apt-get install ros-foxy-jackal-firmware
 
 The microcontroller's power should be switched from Normal to ALT and the M_RST button should be pressed. These specific parts are specifed in the image below.
 
+![image](Videos/image.png)
+
 Then the following command can be run on the Jackal
 
 ``` bash
