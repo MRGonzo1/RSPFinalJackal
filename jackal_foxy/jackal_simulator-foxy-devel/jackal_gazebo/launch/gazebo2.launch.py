@@ -43,7 +43,7 @@ def generate_launch_description():
 
     xacro_file = os.path.join(jackal_description_path,
                               'urdf',
-                              'jackal_lidar.urdf')
+                              'jackal_lidar1.urdf')
     
     world_file = os.path.join(jackal_world_path,
                               'worlds',
@@ -108,6 +108,14 @@ def generate_launch_description():
         output='screen'
     )
 
+    camera_bridge = ExecuteProcess(
+        # cmd=['ros2', 'control', 'load_controller', '--set-state', 'start',
+        #      'joint_state_broadcaster'],
+        cmd=['ros2', 'run', 'ros_ign_bridge', 'parameter_bridge',
+              '/image@sensor_msgs/msg/Image[ignition.msgs.Image'],
+        output='screen'
+    )
+
 
 
     # load_joint_trajectory_controller = ExecuteProcess(
@@ -150,6 +158,12 @@ def generate_launch_description():
             event_handler=OnProcessExit(
                 target_action=ignition_spawn_entity,
                 on_exit=[lidar_bridge],
+            )
+        ),
+        RegisterEventHandler(
+            event_handler=OnProcessExit(
+                target_action=load_joint_state_controller,
+                on_exit=[camera_bridge],
             )
         ),
         node_robot_state_publisher,

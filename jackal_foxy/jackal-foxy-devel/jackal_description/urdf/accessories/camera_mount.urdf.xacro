@@ -21,6 +21,34 @@
         <material name="dark_grey" />
       </visual>
     </link>
+    
+    <!-- camera -->
+      <gazebo reference="${prefix}_camera_beam">
+        <sensor type="camera" name="${prefix}_camera_beam">
+          <update_rate> 30.0 </update_rate>
+          <always_on> 1 </always_on>
+          <topic> image </topic>
+          <camera name="tool">
+            <horizontal_fov> 1.0 </horizontal_fov>
+            <image>
+              <width> 800 </width>
+              <height> 800 </height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near> 0.02 </near>
+              <far> 300 </far>
+            </clip>
+            <noise>
+              <mean> 0.0 </mean>
+              <stddev> 0.01 </stddev>
+            </noise>
+          </camera>
+          <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+          </plugin>
+        </sensor>
+      </gazebo> 
 
     <joint name="${prefix}_camera_pivot_joint" type="fixed">
       <origin xyz="0.102 0 0.008" rpy="0 ${tilt} 0" />

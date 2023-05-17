@@ -294,6 +294,8 @@
     </plugin>
   </gazebo>
 
+  
+
   <!-- Bring in simulation data for Gazebo. -->
   <!-- <xacro:if value="$(arg is_sim)"> -->
     <xacro:include filename="$(find jackal_description)/urdf/jackal.gazebo" />

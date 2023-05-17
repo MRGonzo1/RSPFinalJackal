@@ -14,6 +14,14 @@
         </inertial>
       </link>
 
+      <!-- <link name="${frame}_camera"> </link>
+
+      <joint name="${frame}_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="0 0 0" />
+        <parent link="${frame}"/>
+        <child link="${frame}_camera" />
+      </joint> -->
+
       <!-- <gazebo reference="${frame}">
         <turnGravityOff>true</turnGravityOff>
         <sensor type="ray" name="${frame}">
@@ -52,38 +60,70 @@
       </gazebo> -->
 
       <gazebo reference="${frame}">
-            <sensor type="gpu_lidar" name="${frame}">
-                <ignition_frame_id>${frame}</ignition_frame_id>
-                <update_rate> 40.00 </update_rate>
-                <always_on> 1 </always_on>
-                <topic> range </topic>
-                <ray>
-                    <scan>
-                        <horizontal>
-                            <samples>${sample_size}</samples>
-                            <resolution>1</resolution>
-                            <min_angle>${min_angle}</min_angle>
-                            <max_angle>${max_angle}</max_angle>
-                        </horizontal>
-                        <vertical>
-                            <samples>5</samples>
-                            <resolution>1</resolution>
-                            <min_angle> -.2616</min_angle>
-                            <max_angle> .2616</max_angle>
-                        </vertical>
-                    </scan>
-                    <range>
-                        <min>${min_range}</min>
-                        <max>${max_range}</max>
-                        <resolution>0.01</resolution>
-                    </range>
-                </ray>
-                <plugin filename="ignition-gazebo-sensors-system"
-                    name="ignition::gazebo::systems::Sensors">
-                </plugin>
-            </sensor>
-        </gazebo>
+        <sensor type="gpu_lidar" name="${frame}">
+          <ignition_frame_id>${frame}</ignition_frame_id>
+          <update_rate> 40.00 </update_rate>
+          <always_on> 1 </always_on>
+          <topic> range </topic>
+          <ray>
+            <scan>
+              <horizontal>
+                <samples>${sample_size}</samples>
+                <resolution>1</resolution>
+                <min_angle>${min_angle}</min_angle>
+                <max_angle>${max_angle}</max_angle>
+              </horizontal>
+              <vertical>
+                <samples>5</samples>
+                <resolution>1</resolution>
+                <min_angle> -.2616</min_angle>
+                <max_angle> .2616</max_angle>
+              </vertical>
+            </scan>
+            <range>
+              <min>${min_range}</min>
+              <max>${max_range}</max>
+              <resolution>0.01</resolution>
+            </range>
+          </ray>
+          <plugin filename="ignition-gazebo-sensors-system"
+                  name="ignition::gazebo::systems::Sensors">
+          </plugin>
+        </sensor>
+      </gazebo>
+
+              <!-- camera -->
+      <gazebo reference="${frame}">
+        <sensor type="camera" name="${frame}_camera">
+          <update_rate> 30.0 </update_rate>
+          <always_on> 1 </always_on>
+          <topic> image </topic>
+          <camera name="tool">
+            <horizontal_fov> 1.0 </horizontal_fov>
+            <image>
+              <width> 800 </width>
+              <height> 800 </height>
+              <format>R8G8B8</format>
+            </image>
+            <clip>
+              <near> 0.02 </near>
+              <far> 300 </far>
+            </clip>
+            <noise>
+              <mean> 0.0 </mean>
+              <stddev> 0.01 </stddev>
+            </noise>
+          </camera>
+          <!-- <plugin filename="ignition-gazebo-sensors-system"
+            name="ignition::gazebo::systems::Sensors">
+          </plugin> -->
+        </sensor>
+      </gazebo> 
+
+       
     </xacro:macro>
+
+    
 
     <xacro:hokuyo_ust10 frame="${prefix}_laser" topic="${topic}"/>
 
