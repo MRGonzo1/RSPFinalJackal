@@ -165,3 +165,17 @@ There are two methods by which the PS4 controller can be paired with the Jackal.
   ```
   
   If ROS2 is running the Jackal software, the robot should be able to be controlled using the controller. This can be done by holding the left bumper (front button on the top left of the controller) as a deadman's switch. The left joystick can then be used to control the robot's motion. If it is deisred to run the robot in *turbo* mode, utilize the right bumper instead of the left, but beware, as the robot does move very fast when in this mode.
+  
+  ## Known Issues
+  - The Jackal has a shutdown issue that seems to occur when the MCU is in its normal mode and when the wifi is connected. A conclusion was never arrived at for this issue, but a workaround was found as follows:
+    - Power the robot normally
+    - As the robot is booting up, switch the power of the MCU to its ALT mode
+    - Allows the robot to startup and continue its normal processes
+    - Once some time has passed and the wifi is properly connected, switch the MCU back to normal mode
+    - The robot should now be controllable by the PS4 controller and connected to the internet
+This workaround will allow for the Jackal to be used even though this issue was never resolved. Clearpath has been reached out to, but the issue was never resolved.
+  - We were unable to recieve information from the LIDAR. Using wireshark, we had hoped to find the IP address of the LIDAR, as the data is usually dumped, but we were unable to find any data, even though the power and ethernet were connected.
+  - When attempting to connect to the Jacakl over the network in order to get topics for use in simulation, we encountered various issues over the hopkins network. 
+    - We were unable to start a talker listener node between the robot and the laptop
+    - We were able to ping the other device and we were able to start a chat room between them
+    - In order to attempt to establish a connection, we did attempt to connect over a different network, where we were able to start the talker and listener nodes, but were still unable to view all topics provided by the Jackal.
