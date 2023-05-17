@@ -34,6 +34,7 @@ https://github.com/MRGonzo1/RSPFinalJackal/assets/86250309/87675061-b54b-4744-96
 Running the Simulation side by side with RViz
 
 ## Running
+While running the jackal streams sensor topics on /image and /laser_scan for image data and lidar respectively
 
 
 # Jackal Hardware
