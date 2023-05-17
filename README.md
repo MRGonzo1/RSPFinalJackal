@@ -28,10 +28,7 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel
 
 ## Video + Pictures
 
-![](img/ign_ros2_control.gif)
-
-![](img/diff_drive.gif)
-
+![](Videos/Demo1-2023-05-16_19.35.04.mp4)
 
 ## Running
 
