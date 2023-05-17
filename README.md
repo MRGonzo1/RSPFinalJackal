@@ -28,15 +28,10 @@ ros2 run teleop_twist_keyboard teleop_twist_keyboard --ros-args --remap /cmd_vel
 
 ## Video + Pictures
 
-![](Videos/Demo1-2023-05-16_19.35.04.mp4)
-
 
 https://github.com/MRGonzo1/RSPFinalJackal/assets/86250309/87675061-b54b-4744-9653-e3f4efd06ff5
 
-
-
-
-Demo1-2023-05-16_19.35.04.mp4
+Running the Simulation side by side with RViz
 
 ## Running
 
