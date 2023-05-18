@@ -153,7 +153,7 @@ There are two methods by which the PS4 controller can be paired with the Jackal.
     scan off
     ```
   - Copy the MAC address of the controller, for example 70:20:84:5E:88:B5
-  - Run the following commands(the connect command should be run twice)
+  - Run the following commands with the proper MAC address (the connect command should be run twice)
   ```bash
   trust 70:20:84:5E:88:B5
   connect 70:20:84:5E:88:B5
